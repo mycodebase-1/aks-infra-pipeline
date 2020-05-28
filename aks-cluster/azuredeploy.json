@@ -184,7 +184,7 @@
                     }
                 ],
                 "servicePrincipalProfile": {
-                    "clientId": "$(CLIENTID)",
+                    "clientId": "[parameters('existingServicePrincipalClientId')]",
                     "secret": "$(CLIENTSECRET)"
                 },
                 "networkProfile": {

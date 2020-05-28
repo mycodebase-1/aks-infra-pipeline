@@ -12,7 +12,7 @@
             "value": "XXX"
         },
         "existingServicePrincipalClientId": {
-            "value": "XXX"
+            "value": "$(CLIENTID)"
         },
         "existingServicePrincipalClientSecret": {
             "value": "XXX"
