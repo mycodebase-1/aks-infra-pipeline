@@ -184,7 +184,7 @@
                     }
                 ],
                 "servicePrincipalProfile": {
-                    "clientId": "[$(CLIENTID)",
+                    "clientId": "$(CLIENTID)",
                     "secret": "$(CLIENTSECRET)"
                 },
                 "networkProfile": {
