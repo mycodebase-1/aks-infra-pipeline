@@ -15,13 +15,6 @@
                 "description": "The Azure location of the AKS resource."
             }
         },
-        "clientid": {
-            "type": "string",
-            "defaultValue": "[resourceGroup().clientid]",
-            "metadata": {
-                "description": "The Azure client id of the AKS resource."
-            }
-        },
         "dnsPrefix": {
             "type": "string",
             "metadata": {
@@ -161,8 +154,8 @@
         }
     },
     "variables": {
-        "vnetSubnetId": "[resourceId(parameters('existingVirtualNetworkResourceGroup'),'Microsoft.Network/virtualNetworks/subnets',parameters('existingVirtualNetworkName'),parameters('existingSubnetName'))]",
-        "clientidnew": "[parameters('clientid')]"
+        "vnetSubnetId": "[resourceId(parameters('existingVirtualNetworkResourceGroup'),'Microsoft.Network/virtualNetworks/subnets',parameters('existingVirtualNetworkName'),parameters('existingSubnetName'))]"
+        
     },
     "resources": [
         {
@@ -192,8 +185,8 @@
                     }
                 ],
                 "servicePrincipalProfile": {
-                    "clientId": "[parameters('clientid')]",
-                    "secret": "$(CLIENTSECRET)"
+                    "clientId": "[parameters('existingServicePrincipalClientId')]",
+                    "secret": "[parameters('existingServicePrincipalClientSecret')]"
                 },
                 "networkProfile": {
                     "networkPlugin": "[parameters('networkPlugin')]",
