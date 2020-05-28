@@ -21,7 +21,7 @@
             "value": "AzureRM_vnet"
         },
         "existingVirtualNetworkResourceGroup": {
-            "value": "DellEMCConsulting"
+            "value": "aks-resg-001"
         },
         "existingSubnetName": {
             "value": "Subnet1"
