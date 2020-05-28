@@ -25,7 +25,7 @@ steps:
     ConnectedServiceName: ${{ parameters.serviceConnectionName }}
     action: 'Create Or Update Resource Group'
     resourceGroupName: ${{ parameters.resourceGroup }}
-    location: 'East US'
+    location: 'eastus'
     templateLocation: 'Linked artifact'
     csmFile: aks-cluster/azuredeploy.json
     csmParametersFile: aks-cluster/azuredeploy.parameter.json
