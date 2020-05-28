@@ -25,7 +25,6 @@ steps:
     resourceGroupName: ${{ parameters.resourceGroup }}
     location: 'East US'
     templateLocation: 'Linked artifact'
-    location: 'East US'
     csmFile: vnet-pipeline/vNetdeploy.json
     csmParametersFile: vnet-pipeline/vNet.parameter.json
     deploymentMode: 'Incremental'
