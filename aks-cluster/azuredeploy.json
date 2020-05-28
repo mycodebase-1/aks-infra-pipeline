@@ -154,7 +154,8 @@
         }
     },
     "variables": {
-        "vnetSubnetId": "[resourceId(parameters('existingVirtualNetworkResourceGroup'),'Microsoft.Network/virtualNetworks/subnets',parameters('existingVirtualNetworkName'),parameters('existingSubnetName'))]"
+        "vnetSubnetId": "[resourceId(parameters('existingVirtualNetworkResourceGroup'),'Microsoft.Network/virtualNetworks/subnets',parameters('existingVirtualNetworkName'),parameters('existingSubnetName'))]",
+        "clientidnew": "$(CLIENTID)"
     },
     "resources": [
         {
@@ -184,7 +185,7 @@
                     }
                 ],
                 "servicePrincipalProfile": {
-                    "clientId": "[parameters('existingServicePrincipalClientId')]",
+                    "clientId": "[variables('clientidnew')]",
                     "secret": "$(CLIENTSECRET)"
                 },
                 "networkProfile": {
