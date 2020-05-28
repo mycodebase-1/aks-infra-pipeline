@@ -10,13 +10,9 @@ pool:
   vmImage: 'ubuntu-latest'
 
 parameters:
-  resourceGroup:
-    type: string
-    metadata:
-      description: Name of the existing resource group
-
-variables:
- resourceGroupName: "[parameters(resourceGroup)]"
+- name: resourceGroup # name of the parameter; required
+  type: string # data type of the parameter; required
+  default: false
 
 
 steps:
@@ -26,7 +22,7 @@ steps:
     ConnectedServiceName: 'ARM-SC'
     #subscriptionName: ''
     action: 'Create Or Update Resource Group'
-    resourceGroupName: "[variables('resourceGroupName')]"
+    resourceGroupName: ${{ parameters.resourceGroup }}
     location: 'East US'
     templateLocation: 'Linked artifact'
     csmFile: vNetdeploy.json
