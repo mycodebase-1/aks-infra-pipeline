@@ -12,21 +12,23 @@ pool:
 parameters:
 - name: resourceGroup # name of the parameter; required
   type: string # data type of the parameter; required
-  default: false
+  default: aks-resg-001
+- name: serviceConnectionName
+  type: string
+  default: ARM-SC
 
 
 steps:
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
-    ConnectedServiceName: 'ARM-SC'
-    #subscriptionName: ''
+    ConnectedServiceName: ${{ parameters.serviceConnectionName }}
     action: 'Create Or Update Resource Group'
     resourceGroupName: ${{ parameters.resourceGroup }}
     location: 'East US'
     templateLocation: 'Linked artifact'
-    csmFile: vnet-pipeline/vNetdeploy.json
-    csmParametersFile: vnet-pipeline/vNet.parameter.json
+    csmFile: vnet-pipeline/vnet-deploy.json
+    csmParametersFile: vnet-pipeline/vnet-parameter.json
     deploymentMode: 'Incremental'
 
 
