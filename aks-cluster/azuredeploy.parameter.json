@@ -9,13 +9,13 @@
             "value": "DELLEMCConsulting"
         },
         "existingServicePrincipalObjectId": {
-            "value": "21fe8725-9dea-4ca1-9ee2-ba3f924f7d18"
+            "value": "XXX"
         },
         "existingServicePrincipalClientId": {
-            "value": "20ca0e5f-6562-441a-b99d-b4ae857f3cf6"
+            "value": "XXX"
         },
         "existingServicePrincipalClientSecret": {
-            "value": "E3t5=qYAInK.9Dch4HFdxxzNqp]PU_M8"
+            "value": "XXX"
         },
         "existingVirtualNetworkName": {
             "value": "AzureRM_vnet"
