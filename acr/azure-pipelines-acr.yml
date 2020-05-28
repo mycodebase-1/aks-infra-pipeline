@@ -1,0 +1,32 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger: none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+parameters:
+- name: resourceGroup # name of the parameter; required
+  type: string # data type of the parameter; required
+  default: aks-resg-001
+- name: serviceConnectionName
+  type: string
+  default: ARM-SC
+- name: acrName
+  type: string
+  default: dellemcacr
+
+
+steps:
+- task: AzureCLI@2
+  displayName: Create ACR
+  inputs:
+    azureSubscription: ${{ parameters.serviceConnectionName }}
+    scriptType: bash
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+        az acr create \
+          --resource-group ${{ parameters.resourceGroup }} --name ${{ parameters.acrName }} --sku Basic
