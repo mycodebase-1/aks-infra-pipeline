@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "resourceName": {
+            "value": "DELLEMCConsulting_Dev"
+        },
+        "dnsPrefix": {
+            "value": "DELLEMCConsulting"
+        },
+        "existingServicePrincipalObjectId": {
+            "value": "21fe8725-9dea-4ca1-9ee2-ba3f924f7d18"
+        },
+        "existingServicePrincipalClientId": {
+            "value": "20ca0e5f-6562-441a-b99d-b4ae857f3cf6"
+        },
+        "existingServicePrincipalClientSecret": {
+            "value": "E3t5=qYAInK.9Dch4HFdxxzNqp]PU_M8"
+        },
+        "existingVirtualNetworkName": {
+            "value": "AzureRM_vnet"
+        },
+        "existingVirtualNetworkResourceGroup": {
+            "value": "DellEMCConsulting"
+        },
+        "existingSubnetName": {
+            "value": "Subnet1"
+        }
+    }
+}
