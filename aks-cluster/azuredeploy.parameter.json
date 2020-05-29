@@ -12,10 +12,10 @@
             "value": "XXX"
         },
         "existingServicePrincipalClientId": {
-            "value": "1dfbf3f7-3fb0-4e1e-8939-ba7744de8fef"
+            "value": "XXX"
         },
         "existingServicePrincipalClientSecret": {
-            "value": "94b30656-3ab7-4b32-b935-bf64fb12492d"
+            "value": "XXX"
         },
         "existingVirtualNetworkName": {
             "value": "AzureRM_vnet"
