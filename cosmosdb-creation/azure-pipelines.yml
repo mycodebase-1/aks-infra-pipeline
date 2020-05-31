@@ -1,0 +1,68 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+#trigger:
+#- master
+
+trigger: none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+parameters:
+- name: service_connection
+  displayName: Service Connection
+  type: string
+- name: location
+  displayName: Location of Cosmos DB
+  type: string
+  default: "East US"
+- name: vnet_name
+  displayName: vNet Name
+  type: string
+  default: cosmos_vnet
+- name: subnet_name
+  displayName: Subnet Name
+  type: string
+  default: default
+- name: resource_group
+  displayName: Resrouce Group Name
+  type: string
+  default: MyResourceGroup
+- name: subscription_id
+  displayName: Subscription ID
+  type: string
+
+steps:
+- task: AzureCLI@2
+  displayName: Add service endpoint on existing vNet
+  inputs:
+    azureSubscription: ${{ parameters.service_connection }}
+    scriptType: bash
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+         az network vnet subnet update \
+         --name ${{ parameters.subnet_name }} \
+         --vnet-name ${{ parameters.vnet_name }} \
+         --resource-group ${{ parameters.resource_group }} \
+         --service-endpoints 'Microsoft.AzureCosmosDB'
+
+- task: AzureResourceManagerTemplateDeployment@3
+  displayName: Create Cosmos DB account
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: ${{ parameters.service_connection }}
+    subscriptionId: ${{ parameters.subscription_id }}
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: ${{ parameters.resource_group }}
+    location: ${{ parameters.location }}
+    templateLocation: 'Linked artifact'
+    csmFile: 'azuredeploy.json'
+    csmParametersFile: 'azuredeploy.parameter.json'
+    deploymentMode: 'Incremental'
+    deploymentOutputs: templateOutput
+
+- script: echo '$(templateOutput)'
+  displayName: DBOuputDetails

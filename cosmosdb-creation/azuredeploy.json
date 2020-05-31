@@ -1,0 +1,84 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "type": "string",
+            "defaultValue": "[concat('sql-', uniqueString(resourceGroup().id))]",
+            "metadata": {
+                "description": "Cosmos DB account name, max length 44 characters"
+            }
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "Location for the Cosmos DB account."
+            }
+        },
+		"virtualNetworks_cosmos_vnet": {
+            "defaultValue": "cosmos_vnet",
+            "type": "String"
+        },
+        "subnet_name": {
+            "defaultValue": "default",
+            "type": "String"
+        }
+    },
+    "variables": {
+        "accountName": "[toLower(parameters('name'))]",
+        "consistencyPolicy": {
+            "Session": {
+                "defaultConsistencyLevel": "Session"
+            }
+        },
+    "resourceId": "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('name'))]",
+    "apiVersion": "[providers('Microsoft.DocumentDB', 'databaseAccounts').apiVersions[0]]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.DocumentDb/databaseAccounts",
+            "apiVersion": "2019-12-12",
+            "name": "[parameters('name')]",
+            "location": "[parameters('location')]",
+            "tags": {
+                "hidden-cosmos-mmspecial": "",
+                "CosmosAccountType": "Non-Production"
+            },
+            "kind": "GlobalDocumentDB",
+            "properties": {
+                "databaseAccountOfferType": "Standard",
+				"ipRangeFilter": "104.42.195.92,40.76.54.131,52.176.6.30,52.169.50.45,52.187.184.26",
+                "locations": [
+                    {
+                        "id": "[concat(parameters('name'), '-', parameters('location'))]",
+                        "failoverPriority": 0,
+                        "locationName": "[parameters('location')]"
+                    }
+                 ],
+				"publicNetworkAccess": "Enabled",
+                "enableMultipleWriteLocations": false,
+                "isVirtualNetworkFilterEnabled": true,
+                "virtualNetworkRules": [
+                    {
+                        "id":"[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_cosmos_vnet')), '/subnets/', parameters('subnet_name'))]"
+                    }
+                ]
+            }   
+        }
+    ],
+	"outputs": {
+    "documentEndpoint": {
+      "type": "string",
+      "value": "[reference(variables('resourceId'), variables('apiVersion')).documentEndpoint]"
+    },
+    "accountKey": {
+      "type": "string",
+      "value": "[listKeys(variables('resourceId'), variables('apiVersion')).primaryMasterKey]"
+    },
+    "connectionString": {
+      "type": "string",
+      "value": "[concat('AccountEndpoint=https://', parameters('name'), '.documents.azure.com:443/;AccountKey=', listKeys(variables('resourceId'), variables('apiVersion')).primaryMasterKey, ';')]"
+    }
+  }
+}
