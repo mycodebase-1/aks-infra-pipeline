@@ -21,7 +21,7 @@
             "value": "AzureRM_vnet"
         },
         "existingVirtualNetworkResourceGroup": {
-            "value": "aks-resg-001"
+            "value": "aks-resg-002s"
         },
         "existingSubnetName": {
             "value": "Subnet1"
