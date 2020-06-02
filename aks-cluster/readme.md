@@ -5,8 +5,11 @@ This pipeline will create AKS cluster.
 The following pipelines are executed:
 - Vnet Creation pipeline
 - ACR creation pipeline
+- This pipeline requires the following 2 parameters:
+  - Resource Group Name
+  - Azure Resource group service connection name
 
-
+Note: Some Parameters still have to be externalized
 
 ## Step 1: Create Azure service account, which is used to create AKS cluster
 ```
